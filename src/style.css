@@ -1,0 +1,8 @@
+li {
+    list-style-type: none;
+}
+
+.trashIcon {
+    width: 20px;
+    height: 20px;
+}
