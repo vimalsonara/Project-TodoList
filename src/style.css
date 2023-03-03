@@ -47,14 +47,53 @@ button {
   border-radius: 10px;
 }
 
-li {
-    width: 150px;
-    height: 75px;
-    color: white;
-    list-style-type: none;
+button:hover {
+  cursor: pointer;
+}
+
+#todo-list {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.todo {
+  width: 300px;
+  height: auto;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgb(77, 121, 255);
+  display: grid;
+  grid-template-columns: 25px 230px 25px;
+  grid-template-rows: minmax(2, auto);
+}
+
+.check {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  width: 15px;
+  height: 15px;
+
+}
+
+.todoName {
+  font-size: 24px;
+  font-weight: bold;
+  grid-column: 2 / 3;
+}
+
+.todoDueDate {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
 }
 
 .trashIcon {
-    width: 20px;
-    height: 20px;
+  grid-row: 2 / 3;
+  width: 20px;
+  height: 20px;
+}
+
+.trashIcon:hover {
+  cursor: pointer;
 }
