@@ -53,9 +53,10 @@ button:hover {
 
 #todo-list {
   margin-top: 20px;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .todo {
