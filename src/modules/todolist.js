@@ -4,11 +4,7 @@ export class Todo {
     constructor(todo, dueDate) {
       this.todo = todo;
       this.dueDate = dueDate;
-      this.completeted = false;
-    }
-  
-    complete() {
-      this.completeted = true;
+      this.completed = false;
     }
   }
   
@@ -27,33 +23,60 @@ export class TodoList {
       this.saveTodo();
     }
   
-    completeTodo(index) {
-      this.todos[index].complete();
-      this.saveTodo();
+    completeTodo(todo) {
+      const todoIndex = this.todos.indexOf(todo);
+      if (todo.completed !== true) {
+        this.todos[todoIndex].completed = true;
+        this.saveTodo();
+      } else {
+        this.todos[todoIndex].completed = false;
+        this.saveTodo();
+      }  
     }
   
     displayTodo(todo) {
         const todoListElem = document.querySelector('#todo-list');
-        
-        const li = document.createElement('li');
+        // create div for todo element container
+        const todoContainer = document.createElement('div');
+        todoContainer.classList.add('todo')
+        // create <p> tag
+        const todoName = document.createElement('p');
+        todoName.classList.add('todoName');
+        todoName.innerText = todo.todo;
+        // create <p> tag
+        const todoDueDate = document.createElement('p');
+        todoDueDate.classList.add('todoDueDate');
+        todoDueDate.innerText = todo.dueDate;
+        // create input element
+        const todoCheck = document.createElement('input');
+        todoCheck.classList.add('check');
+        todoCheck.type = 'checkbox';
+        // add created todo element to todo container
+        todoContainer.appendChild(todoCheck);
+        todoContainer.appendChild(todoName);
+        todoContainer.appendChild(todoDueDate);
+        // create img tag 
         const deleteIcon = document.createElement('img');
+        // set trashIcon src to img tag
         deleteIcon.src = trashIcon;
         deleteIcon.alt = 'trash icon';
         deleteIcon.classList.add('trashIcon')
-        li.innerHTML = `<span>${todo.todo}</span></br>
-                        <span>${todo.dueDate}</span>`
-        ;
-        // add delete icon
-        li.appendChild(deleteIcon);
-
+        // add img tag to container
+        todoContainer.appendChild(deleteIcon);
         // delete todo when trash icon clicked 
         deleteIcon.addEventListener('click', e => {
           this.delteTodo(todo);
           e.target.parentElement.remove();
           this.saveTodo();
         })
-        
-        todoListElem.appendChild(li);
+        // mark todo complete
+        todoContainer.addEventListener('click', e => {
+          if (e.target.classList.contains('check')) {
+            this.completeTodo(todo);
+          }
+        })
+        // add container to DOM
+        todoListElem.appendChild(todoContainer);
     }
 
     saveTodo() {
